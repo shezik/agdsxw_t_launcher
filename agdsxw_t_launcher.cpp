@@ -53,9 +53,15 @@ int main(int argc, char **argv) {
         }
 
         int multiplier = timeObj->tm_mday > 9 ? 100 : 1000;
-        int c = pow((timeObj->tm_year + 1900) % timeObj->tm_mday, 2) + (timeObj->tm_mon + 1) + timeObj->tm_mday;
+        int remainder = (timeObj->tm_year + 1900) % timeObj->tm_mday;
         char UnEncryCode[32];
-        sprintf(UnEncryCode, "UnEncryCode=%d%d%d", multiplier, c, timeObj->tm_mday * multiplier);
+        if (remainder) {
+                int c = pow(remainder, 2) + (timeObj->tm_mon + 1) + timeObj->tm_mday;
+                sprintf(UnEncryCode, "UnEncryCode=%d%d%d", multiplier, c, timeObj->tm_mday * multiplier);
+        } else {
+                // In ActionScript 1, Math.pow(0, n) returns NaN for whatever the fuck reason it may be.
+                sprintf(UnEncryCode, "UnEncryCode=%dNaN%d", multiplier, timeObj->tm_mday * multiplier);
+        }
 
         char *justCode = UnEncryCode + 12;  // Jump over "UnEncryCode="
         cout << "Verification code is " << justCode << endl;
