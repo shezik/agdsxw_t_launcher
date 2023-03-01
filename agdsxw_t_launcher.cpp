@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
                         if (!strcmp("-h", argv[i]) || !strcmp("--help", argv[i]))    help = true;
                 }
                 if (!(dryrun || setTime) || help) {
-                        cout << "agdsxw_t Launcher v1.1" << endl << endl;
+                        cout << "agdsxw_t Launcher v1.2" << endl << endl;
                         cout << "Usage:" << endl;
                         cout << "\t-d / --dry-run:\tGenerate verification code without writing it to disk and launching the main executable." << endl;
                         cout << "\t-t / --time: \tSpecify a date interactively to generate a code. (Implies --dry-run)" << endl;
